@@ -6,24 +6,40 @@
 
   <style>
     .logo-block { display: flex; flex-direction: column; }
-    .logo { width: 120px; margin-bottom: 10px; }
+    .logo { width: 120px; margin-bottom: 2px; }
 
-    body { font-family: Arial, sans-serif; color: #333; margin: 40px; }
+    body { font-family: Arial, sans-serif; color: #333; margin: 40px; padding-top: 50px;}
 
     .top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px; padding-top: 5px; }
-    .company-name { font-size: 13px; font-weight: bold; line-height: 1.4; width: 260px; margin-top: 5px; }
+    .company-name { font-size: 13px; font-weight: bold; line-height: 1.4; width: 260px; }
     .invoice-right { text-align: right; }
     .invoice-title { font-size: 36px; font-weight: 600; }
     .invoice-number { font-size: 14px; font-weight: bold; margin-top: 10px; }
 
-    .balance-due { margin-top: 20px; line-height: 1.4; }
-    .balance-due .amount { font-size: 22px; font-weight: bold; margin-top: 2px; }
+    .balance-due { margin-top: 10px; line-height: 1.4; }
+    .balance-due .amount { padding-left: 4px; }
 
-    .details-table { margin-top: 40px; width: 100%; font-size: 14px; }
-    .details-table td { padding: 6px 4px; }
+    .details-table {
+      margin: 0;
+      padding: 0;
+      border-spacing: 0;
+    }
+    
+    .loadno {
+      padding-left: 4px;
+    }
+
+
     .label { font-weight: bold; }
 
-    .bill-to { margin-top: 40px; font-size: 14px; }
+    .balance-due {  
+      margin: 0;
+      padding: 0;
+      border-spacing: 0; 
+      margin-top: 20px;
+    }
+
+    .bill-to { margin-top: 20px; font-size: 14px; }
     .subject { margin: 20px 0 10px 0; }
 
     .items-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
@@ -37,6 +53,39 @@
     .thank-you { margin-top: 80px; font-size: 14px; }
 
     @media print { .no-print { display: none !important; } }
+
+
+
+    /* Footer */
+
+    .footer {
+      position: fixed;
+      bottom: 30px;               /* distance from bottom */
+      left: 50%;
+      transform: translateX(-50%); /* center align */
+      text-align: center;
+      font-size: 12px;
+      color: #555;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .footer img {
+      width: 80px;               /* adjust size as needed */
+      display: block;
+      margin: 0 auto !important;   /* no space below */
+    }
+    
+    .footer .company-name {
+      font-weight: bold;
+      font-size: 14px;
+      margin-top: 0px !important;
+    }
+    
+    .footer .company-address {
+      font-size: 12px;
+      margin-top: 2px;
+    }
   </style>
 </head>
 
@@ -49,32 +98,39 @@
     </div>
 
     <div class="invoice-right">
-      <div class="invoice-title">INVOICE</div>
-
+  <div class="invoice-title">INVOICE</div>
+    
+      <!-- NEW DATE LINE BELOW INVOICE -->
+      <div class="invoice-date">Date: <%= date || "" %></div>
+    
       <div class="invoice-number"><b>#INV - <%= invoiceNumber || "" %></b></div>
-
-      <div class="balance-due">
-        <div>Balance Due</div>
-        <div class="amount">$<%= balanceDue || "" %></div>
-      </div>
     </div>
   </div>
 
   <table class="details-table">
-    <tr><td class="label">Date:</td><td><%= date || "" %></td></tr>
-    <tr><td class="label">Pay Terms:</td><td><%= payTerms || "" %></td></tr>
-    <tr><td class="label">Due Date:</td><td><%= dueDate || "" %></td></tr>
-    <tr><td class="label">P.O.#:</td><td><%= poNumber || "" %></td></tr>
+    <!-- <tr><td class="label">Date:</td><td><%= date || "" %></td></tr> -->
+    <tr>
+      <td class="label">Load No:</td>
+      <td class="loadno"><%= loadNumber %></td>
+    </tr>
+
+  </table>
+
+  <table class="balance-due">
+    <tr>
+        <td class="label">Balance Due:</td>
+        <td class="amount"><b>$</b><%= balanceDue || "" %></td>
+    </tr>
   </table>
 
   <div class="bill-to">
     <div class="label">Bill To</div>
-    <div><%= billTo || "" %></div>
+    <div><b><%= billTo || "" %></b></div>
   </div>
 
   <div class="subject">
     <div class="label">Subject:</div>
-    <div>Invoice for Load # <%= loadNumber || "" %></div>
+    <div>Invoice for Load <b>#<%= loadNumber || "" %></b></div>
   </div>
 
   <table class="items-table">
@@ -114,7 +170,18 @@
     <tr><td class="label">Balance Due</td><td>$<%= balanceDue || "" %></td></tr>
   </table>
 
-  <div class="thank-you">Thank you for business.</div>
+  <div class="thank-you">Thank you.</div>
 
+
+  <!-- Footer -->
+
+  <div class="footer">
+    <img src="<%= imagePath %>" alt="Company Logo">
+    <div class="company-name">HA TRANSPORTATION NW LLC</div>
+    <div class="company-address">
+      12812 NE 147th Pl, Kirkland, WA 98034<br>
+      Phone: (123) 456-7890
+    </div>
+  </div>
 </body>
 </html>
