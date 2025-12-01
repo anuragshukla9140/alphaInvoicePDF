@@ -5,229 +5,78 @@
   <title>Invoice</title>
 
   <style>
+    .logo-block { display: flex; flex-direction: column; }
+    .logo { width: 120px; margin-bottom: 10px; }
 
-    .logo-block {
-      display: flex;
-      flex-direction: column;
-    }
-    
-    .logo {
-      width: 120px;
-      margin-bottom: 10px;
-    }
+    body { font-family: Arial, sans-serif; color: #333; margin: 40px; }
 
+    .top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px; padding-top: 5px; }
+    .company-name { font-size: 13px; font-weight: bold; line-height: 1.4; width: 260px; margin-top: 5px; }
+    .invoice-right { text-align: right; }
+    .invoice-title { font-size: 36px; font-weight: 600; }
+    .invoice-number { font-size: 14px; font-weight: bold; margin-top: 10px; }
 
-    body {
-      font-family: Arial, sans-serif;
-      color: #333;
-      margin: 40px;
-    }
+    .balance-due { margin-top: 20px; line-height: 1.4; }
+    .balance-due .amount { font-size: 22px; font-weight: bold; margin-top: 2px; }
 
-    /* ---------- TOP HEADER STYLE ---------- */
+    .details-table { margin-top: 40px; width: 100%; font-size: 14px; }
+    .details-table td { padding: 6px 4px; }
+    .label { font-weight: bold; }
 
-    .top-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: 50px;
-      padding-top: 5px;
-    }
+    .bill-to { margin-top: 40px; font-size: 14px; }
+    .subject { margin: 20px 0 10px 0; }
 
-    .company-name {
-      font-size: 13px;
-      font-weight: bold;
-      line-height: 1.4;
-      width: 260px;
-      margin-top: 5px;
-    }
+    .items-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+    .items-table thead { background: #333; color: white; font-weight: bold; }
+    .items-table th, .items-table td { padding: 8px; border: 1px solid #ddd; vertical-align: top; }
 
-    .invoice-right {
-      text-align: right;
-    }
+    .totals { margin-top: 40px; width: 300px; float: right; font-size: 14px; }
+    .totals tr td { padding: 6px 0; }
+    .totals .total-row td { font-size: 18px; font-weight: bold; border-top: 2px solid #000; padding-top: 10px; }
 
-    .invoice-title {
-      font-size: 36px;
-      font-weight: 600;
-      margin: 0;
-      padding: 0;
-      letter-spacing: 1px;
-    }
+    .thank-you { margin-top: 80px; font-size: 14px; }
 
-    .invoice-number {
-      font-size: 14px;
-      font-weight: bold;
-      margin-top: 10px;
-    }
-
-    .balance-due {
-      margin-top: 20px;
-      line-height: 1.4;
-    }
-
-    .balance-due div:first-child {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    .balance-due .amount {
-      font-size: 22px;
-      font-weight: bold;
-      margin-top: 2px;
-    }
-
-    /* ---------- RIGHT SIDE DETAILS ---------- */
-    .details-table {
-      margin-top: 40px;
-      width: 100%;
-      font-size: 14px;
-    }
-
-    .details-table td {
-      padding: 6px 4px;
-    }
-
-    .label {
-      font-weight: bold;
-    }
-
-    /* ---------- BILL TO ---------- */
-    .bill-to {
-      margin-top: 40px;
-      font-size: 14px;
-    }
-
-    /* ---------- SUBJECT ---------- */
-    .subject {
-      margin: 20px 0 10px 0;
-    }
-
-    /* ---------- ITEMS TABLE ---------- */
-
-    .items-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      font-size: 14px;
-    }
-
-    .items-table thead {
-      background: #333;
-      color: white;
-      font-weight: bold;
-    }
-
-    .items-table th,
-    .items-table td {
-      padding: 8px;
-      border: 1px solid #ddd;
-      vertical-align: top;
-    }
-
-    /* ---------- TOTALS ---------- */
-    .totals {
-      margin-top: 40px;
-      width: 300px;
-      float: right;
-      font-size: 14px;
-    }
-
-    .totals tr td {
-      padding: 6px 0;
-    }
-
-    .totals .label {
-      font-weight: bold;
-    }
-
-    .totals .total-row td {
-      font-size: 18px;
-      font-weight: bold;
-      border-top: 2px solid #000;
-      padding-top: 10px;
-    }
-
-    /* ---------- THANK YOU ---------- */
-    .thank-you {
-      margin-top: 80px;
-      font-size: 14px;
-    }
-
-
-    @media print {
-  .no-print {
-    display: none !important;
-  }
-}
- Button a{
-  text-decoration: none;
-  color: black;
- }
-
+    @media print { .no-print { display: none !important; } }
   </style>
 </head>
 
 <body>
 
-  <!-- Top Section -->
   <div class="top-header">
     <div class="logo-block">
-      <img src="/HAlogo.png" class="logo">
-      <div class="company-name">
-        HA TRANSPORTATION NW LLC
-      </div>
+      <img src="<%= imagePath %>" class="logo">
+      <div class="company-name">HA TRANSPORTATION NW LLC</div>
     </div>
-
 
     <div class="invoice-right">
       <div class="invoice-title">INVOICE</div>
 
-      <div class="invoice-number">
-        <b>#INV - <%= invoiceNumber %></b>
-      </div>
+      <div class="invoice-number"><b>#INV - <%= invoiceNumber || "" %></b></div>
 
       <div class="balance-due">
         <div>Balance Due</div>
-        <div class="amount">$<%= balanceDue %></div>
+        <div class="amount">$<%= balanceDue || "" %></div>
       </div>
     </div>
   </div>
 
-  <!-- Right Side Details -->
   <table class="details-table">
-    <tr>
-      <td class="label">Date:</td>
-      <td><%= date %></td>
-    </tr>
-
-    <tr>
-      <td class="label">Pay Terms:</td>
-      <td><%= payTerms %></td>
-    </tr>
-
-    <tr>
-      <td class="label">Due Date:</td>
-      <td><%= dueDate %></td>
-    </tr>
-
-    <tr>
-      <td class="label">P.O.#:</td>
-      <td><%= poNumber %></td>
-    </tr>
+    <tr><td class="label">Date:</td><td><%= date || "" %></td></tr>
+    <tr><td class="label">Pay Terms:</td><td><%= payTerms || "" %></td></tr>
+    <tr><td class="label">Due Date:</td><td><%= dueDate || "" %></td></tr>
+    <tr><td class="label">P.O.#:</td><td><%= poNumber || "" %></td></tr>
   </table>
 
-  <!-- Bill To -->
   <div class="bill-to">
     <div class="label">Bill To</div>
-    <div><%= billTo %></div>
+    <div><%= billTo || "" %></div>
   </div>
 
-  <!-- Subject -->
   <div class="subject">
     <div class="label">Subject:</div>
-    <div>Invoice for Load # <%= loadNumber %></div>
+    <div>Invoice for Load # <%= loadNumber || "" %></div>
   </div>
 
-  <!-- Items Table -->
   <table class="items-table">
     <thead>
       <tr>
@@ -240,51 +89,32 @@
     </thead>
 
     <tbody>
-      <% items.forEach((item, index) => { %>
+      <% (items || []).forEach((item, index) => { %>
         <tr>
           <td><%= index + 1 %></td>
 
           <td>
-            <%= item.description %><br>
-            <%= item.pickupAddress %><br><br>
+            <%= item.description || "" %><br>
+            <%= item.pickupAddress || "" %><br><br>
             To<br><br>
-            <%= item.dropAddress %>
+            <%= item.dropAddress || "" %>
           </td>
 
-          <td><%= item.qty %></td>
-          <td>$<%= item.rate %></td>
-          <td>$<%= item.amount %></td>
+          <td><%= item.qty || "" %></td>
+          <td>$<%= item.rate || "" %></td>
+          <td>$<%= item.amount || "" %></td>
         </tr>
       <% }) %>
     </tbody>
   </table>
 
-  <!-- Totals -->
   <table class="totals">
-    <tr>
-      <td class="label">Sub Total</td>
-      <td>$<%= subtotal %></td>
-    </tr>
-
-    <tr class="total-row">
-      <td class="label">Total</td>
-      <td>$<%= total %></td>
-    </tr>
-
-    <tr>
-      <td class="label">Balance Due</td>
-      <td>$<%= balanceDue %></td>
-    </tr>
+    <tr><td class="label">Sub Total</td><td>$<%= subtotal || "" %></td></tr>
+    <tr class="total-row"><td class="label">Total</td><td>$<%= total || "" %></td></tr>
+    <tr><td class="label">Balance Due</td><td>$<%= balanceDue || "" %></td></tr>
   </table>
 
-  <div class="thank-you">Thank you for business.</div><br><br><br>
-  <Button>
-  <a href="/download-pdf" target="_blank" class="download-btn no-print">
-  Download Invoice
-</a></Button>
-
-
-  <hr>
+  <div class="thank-you">Thank you for business.</div>
 
 </body>
 </html>
