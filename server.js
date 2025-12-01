@@ -17,26 +17,21 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/pdfs", express.static(path.join(__dirname, "pdfs")));
 
-// Optional preview route
+
+//Secure home route
 app.get("/", (req, res) => {
-  res.render("invoice", {
-    invoiceNumber: 60561,
-    balanceDue: "3,151.90",
-    date: "2025-02-04",
-    billTo: "C.H.ROBINSON",
-    subtotal: "3,151.90",
-    total: "3,151.90",
-    imagePath: "/HAlogo.png", // preview uses relative path
-    items: [{
-      description: "REI - Goodyear",
-      pickupAddress: "4877 N Cotton Ln",
-      dropAddress: "1700 45th St E, Sumner, WA 98352",
-      qty: 1,
-      rate: "3,151.90",
-      amount: "3,151.90"
-    }]
-  });
+  try {
+    res.send("Invoice PDF Generator API is running.");
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Internal server error in home route",
+      error: error.message
+    });
+  }
 });
+
+
 
 /**
  * POST /generate-pdf
