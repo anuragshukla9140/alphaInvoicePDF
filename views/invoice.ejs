@@ -5,20 +5,18 @@
   <title>Invoice</title>
 
   <style>
-    .logo-block { display: flex; flex-direction: column; }
-    .logo { width: 120px; margin-bottom: 2px; }
-
     body { font-family: Arial, sans-serif; color: #333; margin: 40px; padding-top: 50px;}
 
+    /* Logo, Company Name, Invoice and Date */
+    .logo-block { display: flex; flex-direction: column; }
+    .logo { width: 120px; margin-bottom: 2px; }
     .top-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 50px; padding-top: 5px; }
     .company-name { font-size: 13px; font-weight: bold; line-height: 1.4; width: 260px; }
     .invoice-right { text-align: right; }
     .invoice-title { font-size: 36px; font-weight: 600; }
     .invoice-number { font-size: 14px; font-weight: bold; margin-top: 10px; }
 
-    .balance-due { margin-top: 10px; line-height: 1.4; }
-    .balance-due .amount { padding-left: 4px; }
-
+    /* Details-Table */
     .details-table {
       margin: 0;
       padding: 0;
@@ -29,8 +27,11 @@
       padding-left: 4px;
     }
 
-
     .label { font-weight: bold; }
+
+    /* Balance Due */ 
+    .balance-due { margin-top: 10px; line-height: 1.4; }
+    .balance-due .amount { padding-left: 4px; }
 
     .balance-due {  
       margin: 0;
@@ -39,25 +40,28 @@
       margin-top: 20px;
     }
 
+    /* Bill To and Subject */ 
     .bill-to { margin-top: 20px; font-size: 14px; }
     .subject { margin: 20px 0 10px 0; }
 
+
+    /* Items Table */
     .items-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
     .items-table thead { background: #333; color: white; font-weight: bold; }
     .items-table th, .items-table td { padding: 8px; border: 1px solid #ddd; vertical-align: top; }
 
+    /* Totals */
     .totals { margin-top: 40px; width: 300px; float: right; font-size: 14px; }
     .totals tr td { padding: 6px 0; }
     .totals .total-row td { font-size: 18px; font-weight: bold; border-top: 2px solid #000; padding-top: 10px; }
 
+    /* Thank You Text */
     .thank-you { margin-top: 80px; font-size: 14px; }
+
 
     @media print { .no-print { display: none !important; } }
 
-
-
     /* Footer */
-
     .footer {
       position: fixed;
       bottom: 30px;               
@@ -90,7 +94,7 @@
 </head>
 
 <body>
-
+  <!-- Company name , Logo, Invoice, Date -->
   <div class="top-header">
     <div class="logo-block">
       <img src="<%= imagePath %>" class="logo">
@@ -99,23 +103,21 @@
 
     <div class="invoice-right">
   <div class="invoice-title">INVOICE</div>
-    
-      <!-- NEW DATE LINE BELOW INVOICE -->
       <div class="invoice-date">Date: <%= date || "" %></div>
-    
       <div class="invoice-number"><b>#INV - <%= invoiceNumber || "" %></b></div>
     </div>
   </div>
 
+  <!-- Load Number -->
   <table class="details-table">
     <!-- <tr><td class="label">Date:</td><td><%= date || "" %></td></tr> -->
     <tr>
       <td class="label">Load No:</td>
       <td class="loadno"><%= loadNumber %></td>
     </tr>
-
   </table>
 
+  <!-- Balance Due -->
   <table class="balance-due">
     <tr>
         <td class="label">Balance Due:</td>
@@ -123,16 +125,19 @@
     </tr>
   </table>
 
+  <!-- Bill To -->
   <div class="bill-to">
     <div class="label">Bill To</div>
     <div><b><%= billTo || "" %></b></div>
   </div>
 
+  <!-- Subject -->
   <div class="subject">
     <div class="label">Subject:</div>
     <div>Invoice for Load <b>#<%= loadNumber || "" %></b></div>
   </div>
 
+  <!-- Table and Content -->
   <table class="items-table">
     <thead>
       <tr>
@@ -164,17 +169,19 @@
     </tbody>
   </table>
 
+  <!-- Total, Sub and Balance Amount -->
   <table class="totals">
     <tr><td class="label">Sub Total</td><td>$<%= subtotal || "" %></td></tr>
     <tr class="total-row"><td class="label">Total</td><td>$<%= total || "" %></td></tr>
     <tr><td class="label">Balance Due</td><td>$<%= balanceDue || "" %></td></tr>
   </table>
 
+
+  <!-- Thankyou Text -->
   <div class="thank-you">Thank you.</div>
 
 
   <!-- Footer -->
-
   <div class="footer">
     <img src="<%= imagePath %>" alt="Company Logo">
     <div class="company-name">HA TRANSPORTATION NW LLC</div>
